@@ -59,7 +59,7 @@ Chrono::Chrono(Chrono::chrono_t (*getTime_)(void), bool startNow) : _getTime(get
     _isRunning = false;
   }
 }
-Chrono::Chrono(Chrono::chrono_t offset, void (*callBack_)(void))  
+Chrono::Chrono(void (*callBack_)(void))  
 {
     _getTime = millis;
     restart();
