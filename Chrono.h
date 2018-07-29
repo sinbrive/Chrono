@@ -87,7 +87,7 @@ public:
    */
   Chrono(chrono_t (*getTime_)(void), bool startNow=true);
   
-  Chrono(chrono_t t, void (*callBack_)(void));
+  Chrono(void (*callBack_)(void));
   
   // Check if callback function has to run
   void update(chrono_t timeout);
