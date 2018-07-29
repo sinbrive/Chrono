@@ -6,12 +6,16 @@ Chrono library for Arduino or Wiring
 Chronometer/stopwatch library that counts the time passed since started.
 
 Added feature : callback
+
 Files changed : 
+
 - Chrono.h
 - Chrono.cpp
-Example added
-- serialInterval2
 
+Example added
+
+- serialInterval2
+```
 Chrono::Chrono(Chrono::chrono_t offset, void (*callBack_)(void))  
 {
     _getTime = millis;
@@ -25,10 +29,10 @@ void Chrono::update(chrono_t timeout) {
            // restart();
   }
 }
-
+```
 
 Example
-
+```
 #include <Chrono.h>
 
 const int FREQ=1000;
@@ -63,7 +67,7 @@ void setup() {
 void loop() {
     myChrono.update(1000);
 }
-
+```
 ## Repository
 
 * Broswe the source code here: http://github.com/SofaPirate/Chrono
