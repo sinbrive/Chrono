@@ -56,6 +56,6 @@ void setup() {
 
 void loop() {
  
-    myChrono.update(1000);
+    myChrono.update(FREQ);
 
 }
