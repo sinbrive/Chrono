@@ -61,12 +61,9 @@ Chrono::Chrono(Chrono::chrono_t (*getTime_)(void), bool startNow) : _getTime(get
 }
 Chrono::Chrono(Chrono::chrono_t offset, void (*callBack_)(void))  
 {
- 
     _getTime = millis;
-    restart(offset);
-    
+    restart();
     _callBack=callBack_;
-
 }
 
 void Chrono::update(chrono_t timeout) {
