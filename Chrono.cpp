@@ -31,7 +31,7 @@
 #else
 #include "WProgram.h"
 #endif
-#include "Chrono.h"
+#include "Chrono2.h"
 
 Chrono::Chrono(Resolution resolution) {
   // Assign appropriate time function.
@@ -57,6 +57,22 @@ Chrono::Chrono(Chrono::chrono_t (*getTime_)(void), bool startNow) : _getTime(get
   else {
     _startTime = _offset = 0;
     _isRunning = false;
+  }
+}
+Chrono::Chrono(Chrono::chrono_t offset, void (*callBack_)(void))  
+{
+ 
+    _getTime = millis;
+    restart(offset);
+    
+    _callBack=callBack_;
+
+}
+
+void Chrono::update(chrono_t timeout) {
+   if (hasPassed(timeout, true)) {
+            _callBack();
+           // restart();
   }
 }
 
@@ -116,6 +132,4 @@ bool Chrono::hasPassed(Chrono::chrono_t timeout, bool restartIfPassed) {
 Chrono::chrono_t Chrono::seconds() {
   return (millis()/1000);
 }
-
-
 
