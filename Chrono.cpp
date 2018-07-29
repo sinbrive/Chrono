@@ -31,7 +31,7 @@
 #else
 #include "WProgram.h"
 #endif
-#include "Chrono2.h"
+#include <Chrono.h>
 
 Chrono::Chrono(Resolution resolution) {
   // Assign appropriate time function.
