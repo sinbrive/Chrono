@@ -16,7 +16,7 @@ Example added
 
 - serialInterval2
 ```
-Chrono::Chrono(Chrono::chrono_t offset, void (*callBack_)(void))  
+Chrono::Chrono(void (*callBack_)(void))  
 {
     _getTime = millis;
     restart();
@@ -38,7 +38,7 @@ Example
 const int FREQ=1000;
 
 // Custom callback function
-Chrono myChrono(FREQ, GetAnalogValue);
+Chrono myChrono(GetAnalogValue);
 
 int PreviousV;
 
