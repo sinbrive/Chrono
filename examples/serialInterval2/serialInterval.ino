@@ -18,45 +18,44 @@ Logitheques
 Cet exemple utilise la logitheque Chrono
 
 Version originale : Thomas Ouellet Fredericks, 4 novembre 2012
-Derniere version :  Thomas Ouellet Fredericks, 23 septembre 2014
+Seconde version :  Thomas Ouellet Fredericks, 23 septembre 2014
+Derniere version :  Sinbrive, 26 Juillet 2018
 */
 
 // INCLUDE CHRONO LIBRARY : http://github.com/SofaPirate/Chrono
 #include <Chrono.h> 
 
-Chrono envoiMessage;
+const int FREQ=1000;
 
-int mesurePrecedente;
+// Custom callback function
+Chrono myChrono(FREQ, GetAnalogValue);
+
+int PreviousV;
+
+// callback function (called every xx ms in similar background)
+void GetAnalogValue() {
+    
+      // Get analog value A0 
+    int currentV = analogRead(0);
+    
+    // compare with the previous value
+    if ( PreviousV != currentV ) {
+      // Enregistrer la nouvelleMesure :
+      PreviousV = currentV;
+      
+      // Envoyer la valeur du potentiometre.
+      Serial.print("A0 "); // "A0" suivi d'un espace
+      Serial.print(currentV); // la valeur de la mesure
+      Serial.println(); // indicateur de fin de ligne  
+    }
+}
 
 void setup() {
-
-        // Demarrer la communication serie a  57600 baud.
-        Serial.begin(57600);
+  Serial.begin(9600);
 }
 
 void loop() {
+ 
+    myChrono.update(1000);
 
-        if ( envoiMessage.hasPassed(20) ) {
-		    envoiMessage.restart();
-               
-                // Mesurer la tension a la broche analogique 0 :
-                int nouvelleMesure = analogRead(0);
-                
-                // Comparer la nouvelleMesure avec la precedente :
-                if ( mesurePrecedente != nouvelleMesure ) {
-                  // Enregistrer la nouvelleMesure :
-                  mesurePrecedente = nouvelleMesure;
-                  
-                  // Envoyer la valeur du potentiometre.
-                  Serial.print("A0 "); // "A0" suivi d'un espace
-                  Serial.print(nouvelleMesure); // la valeur de la mesure
-                  Serial.println(); // indicateur de fin de ligne
-                  /* 
-                  // Le bloc precedent peut aussi etre ecrit ainsi:
-                  Serial.print("A0 "); // "A0" suivi d'un espace
-                  Serial.println(valeur); // la valeur suivi de l'indicateur de fin de ligne
-                  */
-                }
-
-        }
 }
