@@ -2,9 +2,13 @@
  * Chronometer class
  * Chronometer/stopwatch class that counts the time passed since started.
  * 
+ * 
  * (c) 2015 Sofian Audry        :: info(@)sofianaudry(.)com
  * (c)      Thomas O Fredericks :: tof(@)t-o-f(.)info
  * (c)      Rob Tillaart
+ *
+ * Sinbrive :
+ * callback feature
  *
  * Based on code by Sofian Audry:
  * https://github.com/sofian/libinteract/blob/master/trunk/arduino/SuperTimer.h
@@ -65,6 +69,8 @@ public:
 
   // Time function.
   chrono_t (*_getTime)(void);
+  
+  void (*_callBack)(void);
 
   // Tells if the chrono is currently running or not.
   bool _isRunning;
@@ -77,8 +83,15 @@ public:
    * Custom time method constructor. Optional parameter can be used to prevent 
    * the chronometer from starting at construction since some functions might
    * trigger errors when called statically.
+   * Added feature : callback
    */
   Chrono(chrono_t (*getTime_)(void), bool startNow=true);
+  
+  Chrono(chrono_t t, void (*callBack_)(void));
+  
+  // Check if callback function has to run
+  void update(chrono_t timeout);
+  
   
   // Starts/restarts the chronometer with optional starting offset.
   void start(chrono_t offset = 0);
@@ -111,5 +124,4 @@ public:
 };
 
 #endif
-
 
